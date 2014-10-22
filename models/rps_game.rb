@@ -1,51 +1,46 @@
 class RPSGame
+  require 'pry'
 
-
-  attr_accessor :play
-  attr_reader :computer_play
+  attr_accessor :play, :computer_play
 
   SCORES = {:scissors => "1", :rock => "2", :paper => "3"}
 
   def initialize(play)
-    @play = play
+    play = play.to_sym
+    if self.class.valid_play?(play) 
+      @play  = play
+      @computer_play = SCORES.keys.sample
 
-  end
-
-  class PlayTypeError < StandardError
-    def raise_error
-      "an error"
+    else
+      raise PlayTypeError
     end
   end
 
-  def computer_play
-    SCORES.keys.at( rand(3) )
-  end
+  class PlayTypeError < StandardError
 
+  end
+ 
 
   def self.valid_play?(play)
     if play == :rock || play == :paper || play == :scissors
       true
     else
-      PlayTypeError.new
+      false
     end
   end
 
-  def tied?
-    @play == @computer_play
-  end
 
   def won?
-    if (@computer_play == :rock && @play == :paper) || (@computer_play == :scissors && @play == :rock) || (@computer_play == :paper && @play == :scissors)
-      true
-    end
+    (play == :rock && computer_play == :scissors) || (play == :paper && computer_play == :rock) || (play == :scissors && computer_play == :paper)
   end
 
   def lost?
-    if !(won?)
-      true
-    end
+    (play == :scissors && computer_play == :rock) || (play == :rock && computer_play == :paper) || (play == :paper && computer_play == :scissors)
   end
 
+  def tied?
+    !(won?) && !(lost?)
+  end
 
 end
 
