@@ -1,2 +1,15 @@
-<h1>WELCOME TO ROCK PAPER SCISSORS</h1>
-<%= @game.computer_play %>
+<h1 style="font-family:Helvetica; color:#494949; padding-left:100px; padding-top:20px; padding-bottom:10px;">
+ ROCK || PAPER || SCISSORS</h1>
+<p style="font-family:Helvetica; padding-left:180px; color:#d23232;">You played: <%= @game.play %> </p>
+  <br /><p style="font-family:Helvetica; padding-left:180px; color:#258749;">The computer played: <%= @game.computer_play %> </p>
+  <% if @game.won? %>
+   <h1 style="font-family:Helvetica; padding-left:480px; color:#8a7f8d; padding-top:100px;"><%= "You won!" %> </h1>
+   <% end %>
+    <% if @game.tied? %>
+     <h1 style="font-family:Helvetica; padding-left:480px; color:#2c3f48; padding-top:100px;"><%= "You tied!" %> </h1>
+    <% end %>
+    <% if @game.lost? %> 
+    <h1 style="font-family:Helvetica; padding-left:480px; color:#610d0d; padding-top:100px;"><%= "You lost!" %> </h1>
+  <% end %>
+
+
